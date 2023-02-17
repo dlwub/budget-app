@@ -12,5 +12,5 @@ Rails.application.routes.draw do
     resources :transactions, only: [:new, :create]
   end
   resources :transactions, only: [:new, :create]
-  root "wallet#home"
+  root to: "wallet#home"
 end
