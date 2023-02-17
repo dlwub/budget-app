@@ -1,5 +1,4 @@
 class TransactionsController < ApplicationController
-  
   # GET /transactions or /transactions.json
   def index
     @transactions = Transaction.all
@@ -16,7 +15,8 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to transaction_url(@transaction), notice: "Transaction was successfully created." }
+        CategoryTransaction.create(transaction_id: @transaction.id, category_id: params[:category_id])
+        format.html { redirect_to transaction_url(@transaction), notice: 'Transaction was successfully created.' }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -26,8 +26,9 @@ class TransactionsController < ApplicationController
   end
 
   private
-    # Only allow a list of trusted parameters through.
-    def transaction_params
-      params.require(:transaction).permit(:name, :amount, :category, :user_id)
-    end
+
+  # Only allow a list of trusted parameters through.
+  def transaction_params
+    params.require(:transaction).permit(:name, :amount, :category, :user_id)
+  end
 end
