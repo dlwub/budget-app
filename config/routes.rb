@@ -5,9 +5,12 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  get 'wallet/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
+  resources :categories, only: [:index, :show, :new, :create] do
+    resources :transactions, only: [:new, :create]
+  end
+  resources :transactions, only: [:new, :create]
   root "wallet#home"
 end
