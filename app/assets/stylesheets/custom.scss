@@ -1,0 +1,12 @@
+@import 'bootstrap';
+@import 'rails_bootstrap_forms';
+
+.login-btn,
+.signup-btn,
+.not-a-member {
+  text-align: center;
+}
+
+.not-a-member {
+  color: blue;
+}
