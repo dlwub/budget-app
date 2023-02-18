@@ -1,22 +1,24 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show]
-
+  
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+    @categories = current_user.categories
   end
 
   # GET /categories/1 or /categories/1.json
-  def show; end
+  def show
+    @category = current_user.categories.find(params[:id])
+    @entities = @category.entities
+  end
 
   # GET /categories/new
   def new
-    @category = Category.new
+    @category = current_user.categories.new    
   end
 
   # POST /categories or /categories.json
   def create
-    @category = Category.new(category_params)
+    @category = current_user.categories.new(category_params)
 
     respond_to do |format|
       if @category.save
@@ -30,11 +32,6 @@ class CategoriesController < ApplicationController
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_category
-    @category = Category.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def category_params

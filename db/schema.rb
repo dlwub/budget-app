@@ -23,23 +23,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_205547) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "category_transactions", force: :cascade do |t|
+  create_table "category_entities", force: :cascade do |t|
     t.bigint "category_id", null: false
-    t.bigint "transaction_id", null: false
+    t.bigint "entity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_category_transactions_on_category_id"
-    t.index ["transaction_id"], name: "index_category_transactions_on_transaction_id"
+    t.index ["category_id"], name: "index_category_entities_on_category_id"
+    t.index ["entity_id"], name: "index_category_entities_on_entity_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "entities", force: :cascade do |t|
     t.string "name"
     t.decimal "amount"
     t.string "category"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.index ["user_id"], name: "index_entities_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_205547) do
   end
 
   add_foreign_key "categories", "users"
-  add_foreign_key "category_transactions", "categories"
-  add_foreign_key "category_transactions", "transactions"
-  add_foreign_key "transactions", "users"
+  add_foreign_key "category_entities", "categories"
+  add_foreign_key "category_entities", "entities"
+  add_foreign_key "entities", "users"
 end

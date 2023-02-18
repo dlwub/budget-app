@@ -1,9 +1,10 @@
-<h1>New category</h1>
+<div class="container">
+  <h1 class='new-group-heading'>Add New Category</h1>
 
-<%= render "form", category: @category %>
+  <%= render "form", group: @category %>
 
-<br>
+  <br>
 
-<div>
-  <%= link_to "Back to categories", categories_path %>
+  <%= link_to "Back to Home", categories_path, :style=>'margin-left: 52vw;' %>
+  
 </div>

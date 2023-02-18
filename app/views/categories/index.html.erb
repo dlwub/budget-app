@@ -8,7 +8,7 @@
       <li>
         <%= image_tag "#{category.icon}" %>          
         <%= link_to category.name, group_path(category.id)  %>
-        $<%= category.transactions.sum(:amount) %> 
+        $<%= category.entities.sum(:amount) %> 
       </li>
     <% end %>
   </div>

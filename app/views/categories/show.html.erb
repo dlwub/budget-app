@@ -1,10 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @category %>
-
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %> |
-  <%= link_to "Back to categories", categories_path %>
-
-  <%= button_to "Destroy this category", @category, method: :delete %>
+<div class="contaier">
+  <h1>TRANSACTIONS</h1>
+  <%= @total %>
+  <ul>
+    <% @entities.each do |entity|%>
+      <%= link_to entity.name %>
+      <%= link_to entity.amount %>    
+    <% end %>
+  </ul>
+  <%= link_to "Add New Transaction",  new_category_entities_path(@category) %>
+  <%= link_to ">" %>
 </div>
