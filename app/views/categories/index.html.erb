@@ -1,17 +1,18 @@
 <div class="container">
-  <%# <p style="color: green"><%= notice %></p>
+	<p style="color: green"><%= notice %></p>
 
-  <h1>Categories</h1>
+	<h1>Categories</h1>
 
-  <div id="categories">
-    <% @categories.each do |category| %>
-      <li>
-        <%= image_tag "#{category.icon}" %>          
-        <%= link_to category.name, group_path(category.id)  %>
-        $<%= category.entities.sum(:amount) %> 
-      </li>
-    <% end %>
-  </div>
+	<ul id="categories" class="list-unstyled">
+		<% @categories.each do |category| %>
+			<li>
+				<img src="#{category.icon}" alt="Category icon" class="rounded float-left">          
+				<%= link_to category.name, category_entities_path(category.id), class:"text-decoration-none"%>	
+					
+			</li>
+		<% end %>
+	</ul>
 
-  <%= link_to "New category", new_category_path %> %>
+	<%= link_to "Add New Category", new_category_path, class: 'btn btn-primary block' %> 
+	
 </div>

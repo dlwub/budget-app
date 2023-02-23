@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :transactions
-  resources :categories
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -8,9 +6,16 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  resources :categories, only: [:index, :show, :new, :create] do
-    resources :transactions, only: [:new, :create]
+  authenticate :user do    
   end
-  resources :transactions, only: [:new, :create]
+  
+  # be sure to add before default `root`
+  authenticated :user do
+    root to: "categories#index", as: :authenticated_root
+    resources :categories, only: [:index, :new, :create] do
+      resources :entities, only: [:index, :new, :create]
+    end       
+  end
+  resources :entities, only: [:new, :create]
   root to: "wallet#home"
 end

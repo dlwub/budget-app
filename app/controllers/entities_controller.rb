@@ -1,34 +1,39 @@
 class EntitiesController < ApplicationController
-  # GET /Entities or /Entities.json
+  before_action :authenticate_user!
+
+  # GET /entities/index
   def index
-    @entities = Entity.all
-  end
-
-  # GET /Entities/new
+    @category = Category.find(params[:category_id])
+    @entities = current_user.entities.order(created_at: :desc)
+  end 
+  
+  # GET /entities/new
   def new
-    @Entity = Entity.new
+    @entity = current_user.entities.new 
+          
   end
 
-  # POST /Entities or /Entities.json
+  # POST /entities or /entities.json
   def create
-    @Entity = Entity.new(Entity_params)
-
+    @entity = current_user.entities.new(entity_params)
+    
     respond_to do |format|
-      if @Entity.save
-        CategoryEntity.create(Entity_id: @Entity.id, category_id: params[:category_id])
-        format.html { redirect_to Entity_url(@Entity), notice: 'Entity was successfully created.' }
-        format.json { render :show, status: :created, location: @Entity }
+      if @entity.save         
+        format.html { redirect_to "/categories/:category_id", notice: 'Entity was successfully created.' }
+        format.json { render :show, status: :created, location: @entity }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @Entity.errors, status: :unprocessable_entity }
+        format.json { render json: @entity.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  
+
   private
 
   # Only allow a list of trusted parameters through.
-  def Entity_params
-    params.require(:Entity).permit(:name, :amount, :category, :user_id)
+  def entity_params
+    params.require(:entity).permit(:name, :amount, :category, :user_id)
   end
 end
